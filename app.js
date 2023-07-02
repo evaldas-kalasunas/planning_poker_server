@@ -56,6 +56,8 @@ io.on("connection", (socket) => {
             socket.to(data.room).emit('add-story', data.story)  
     });
 
+    // TODO: unify pattern of events -> view-story emitted from app to server as response to action, 
+    // set-view-story -> from server to clients
     socket.on('set-view-story', (data) => {
        io.in(data.room).emit('view-story', data.story)
     })
@@ -73,7 +75,7 @@ io.on("connection", (socket) => {
     });
 
     socket.on('set-stop-voting', (data) => {
-        io.in(data.roomId).emit('stop-voting', data.hideShowVotes) 
+        io.in(data.roomId).emit('stop-voting', data) 
     }) 
 
     socket.on('disconnect', () => {
